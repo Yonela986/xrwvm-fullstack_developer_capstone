@@ -21,8 +21,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('djangoapp/', include('djangoapp.urls')),
-    path('', TemplateView.as_view(template_name="Home.html"), name="home"),   # ← Add this
-    path('about/', TemplateView.as_view(template_name="About.html"), name="about"),
-    path('contact/', TemplateView.as_view(template_name="Contact.html"), name="contact"),  # optional but recommended
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('djangoapp/', include('djangoapp.urls', namespace='djangoapp')),
+
+    # Frontend routes handled by React
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('login/', TemplateView.as_view(template_name='index.html'), name='login'),
+    path('register/', TemplateView.as_view(template_name='index.html'), name='register'),
+    path('about/', TemplateView.as_view(template_name='index.html'), name='about'),
+    path('contact/', TemplateView.as_view(template_name='index.html'), name='contact'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
