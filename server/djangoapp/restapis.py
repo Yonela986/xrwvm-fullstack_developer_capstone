@@ -4,8 +4,7 @@ import os
 from dotenv import load_dotenv
 import requests 
 
-
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 backend_url = os.getenv(
     'backend_url', default="http://localhost:3030")
