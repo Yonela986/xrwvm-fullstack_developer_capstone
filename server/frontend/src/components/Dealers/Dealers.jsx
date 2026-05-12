@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import review_icon from "../assets/reviewbutton.png";
 
 const Dealers = () => {
-    const [dealers, setDealers] = useState([]);
-    const [allDealers, setAllDealers] = useState([]); // keeps full list for state dropdown
-    const [states, setStates] = useState([]);
-    const [selectedState, setSelectedState] = useState('');
-    const [user, setUser] = useState(null);
+  const [dealers, setDealers] = useState([]);
+  const [allDealers, setAllDealers] = useState([]);
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const username = sessionStorage.getItem('username');
@@ -16,14 +17,11 @@ const Dealers = () => {
   const fetchDealers = async (state = '') => {
     let url = `${window.location.origin}/djangoapp/get_dealers/`;
     if (state) url += `state/${state}/`;
-
     try {
       const res = await fetch(url);
       const data = await res.json();
       const dealerList = data.dealers || [];
       setDealers(dealerList);
-
-      // Extract unique states for dropdown
       if (!state) {
         setAllDealers(dealerList);
         const uniqueStates = [...new Set(dealerList.map(d => d.state))].sort();
@@ -37,9 +35,7 @@ const Dealers = () => {
   const handleStateChange = (e) => {
     const state = e.target.value;
     setSelectedState(state);
-
     if (!state) {
-      // Reset to full list without re-fetching
       setDealers(allDealers);
     } else {
       fetchDealers(state);
@@ -79,7 +75,7 @@ const Dealers = () => {
               <tr key={dealer.id}>
                 <td>{dealer.id}</td>
                 <td>
-                  <a href={`/dealer/${dealer.id}`}>{dealer.full_name}</a>
+                  <a href={`/#/dealer/${dealer.id}`}>{dealer.full_name}</a>
                 </td>
                 <td>{dealer.city}</td>
                 <td>{dealer.address}</td>
@@ -87,9 +83,9 @@ const Dealers = () => {
                 <td>{dealer.state}</td>
                 {user && (
                   <td>
-                    <a href={`/postreview/${dealer.id}`}>
+                    <a href={`/#/postreview/${dealer.id}`}>
                       <img
-                        src="/static/assets/reviewicon.png"
+                        src={review_icon}
                         alt="Post Review"
                         style={{ width: '30px', cursor: 'pointer' }}
                       />

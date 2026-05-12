@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Dealers from './components/Dealers/Dealers';
 import Dealer from './components/Dealers/Dealer';
 import PostReview from './components/Dealers/PostReview';
@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Dealers />} />
         <Route path="/dealers" element={<Dealers />} />
         <Route path="/dealer/:id" element={<Dealer />} />
-        <Route path="/postreview/:dealer_id" element={<PostReview />} />
+        <Route path="/postreview/:id" element={<PostReview />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
