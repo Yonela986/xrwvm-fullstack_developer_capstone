@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
+from .populate import initiate
 from .restapis import get_request, analyze_review_sentiments, post_review
 import logging
 import json
@@ -99,7 +100,17 @@ def add_review(request):
 
 
 def get_cars(request):
-    return JsonResponse({
-        "CarMakes": list(CarMake.objects.values()),
-        "CarModels": list(CarModel.objects.values()),
-    })
+    count = CarMake.objects.filter().count()
+    print(count)
+    if count == 0:
+        initiate()
+    car_models = CarModel.objects.select_related('car_make')
+    cars = []
+    for car_model in car_models:
+        cars.append(
+            {
+                "CarModel": car_model.name,
+                "CarMake": car_model.car_make.name
+            }
+        )
+    return JsonResponse({"CarModels": cars})

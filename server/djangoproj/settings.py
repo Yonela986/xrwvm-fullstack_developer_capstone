@@ -9,15 +9,16 @@ SECRET_KEY = (
 
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    'https://yonela-8000.theianext-1-labs-prod-misc-tools-'
-    'us-east-0.proxy.cognitiveclass.ai'
-]
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://yonela-8000.theianext-1-labs-prod-misc-tools-'
-    'us-east-0.proxy.cognitiveclass.ai'
+    'https://yonela-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
+    'https://yonela-8001.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
+    'https://yonela-8002.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
+    'https://*.proxy.cognitiveclass.ai',
+    'http://localhost:8000',
+    'http://localhost:8001',
+    'http://localhost:8002',
 ]
 
 REST_FRAMEWORK = {
@@ -106,7 +107,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
